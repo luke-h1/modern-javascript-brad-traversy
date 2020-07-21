@@ -51,11 +51,12 @@ val1 = link.getAttribute('href'); //get href
 val1 = link.setAttribute('href', 'https://duckduckgo.com' ) //set new href 
 
 val1 = link.hasAttribute('href'); // returns true as their is a href set there 
+
 val1 = link.hasAttribute('title'); // returns false as their is no title attribute set
+
 link.setAttribute('title', 'helloworrlllld!') // now returns true as a title has been set 
 console.log(link)
 
 link.removeAttribute('title'); //remove title attribute 
-// add title attribute 
 
 console.log(val1)
