@@ -10,7 +10,7 @@ form.addEventListener('submit', runEvent);
 taskInput.addEventListener('keydown', runEvent); 
 
 // Key up // when a key is released on the input element
-taskInput.addEventListener('keyup', runEvent); //
+taskInput.addEventListener('keyup', runEvent); 
 
 //  focus  // when you click inside of the input
 taskInput.addEventListener('focus', runEvent);
