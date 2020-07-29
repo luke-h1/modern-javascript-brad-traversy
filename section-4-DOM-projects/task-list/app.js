@@ -13,8 +13,9 @@ function loadEventListeners() {
     form.addEventListener('submit', addTask); // add task event
     taskList.addEventListener('click', removeTask); // remove task event
     clearBtn.addEventListener('click', clearTasks); // clear task event
-    filter.addEventListener('keyup', filterTasks);
 }
+
+
 
 // add task
 function addTask(e) {
@@ -31,6 +32,21 @@ function addTask(e) {
     taskList.appendChild(li); // append li to u
     taskInput.value = ''; // clear input
     e.preventDefault();
+    storeTaskInLocalStorage(taskInput.value); // store in local storage
+}
+
+// store task
+
+function storeTaskInLocalStorage(task) {
+    let tasks;
+    if (localStorage.getItem('tasks') === null) {
+        tasks = [];
+    } else {
+        tasks = JSON.parse(localStorage.getItem('tasks'));
+    }
+
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // if(confirm('are you sure?')){
@@ -51,17 +67,3 @@ function clearTasks() {
     }
 }
 
-// filter tasks
-// all list items with that class (.collection-item)
-// querySelectorAll returns node list
-function filterTasks(e) {
-    const text = e.target.value.toLowerCase;
-    document.querySelectorAll('.collection-item').forEach(function (task) {
-        const item = task.firstChild.textContent;
-        if (item.toLowerCase().indexOf(text) != -1) {
-            task.style.display = 'block';
-        } else {
-            task.style.display = 'none';
-        }
-    });
-}
