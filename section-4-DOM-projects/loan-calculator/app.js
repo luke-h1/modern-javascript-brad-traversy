@@ -1,9 +1,17 @@
 // listen for submit
-document.getElementById('loan-form').addEventListener('submit', calculateResults);
+document.getElementById('loan-form').addEventListener('submit', function (e) {
+    // hide results
+    document.getElementById('results').style.display = 'none';
+
+    // show loader on click
+    document.getElementById('loading').style.display = 'block';
+
+    setTimeout(calculateResults, 2000);
+    e.preventDefault();
+});
 
 // calculate results function
-function calculateResults(e) {
-    e.preventDefault();
+function calculateResults() {
     // UI variables
     const amount = document.getElementById('amount');
     const interest = document.getElementById('interest');
@@ -27,6 +35,9 @@ function calculateResults(e) {
             monthly * calculatedPayments -
             prinicipal
         ).toFixed(2);
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('loading').style.display = 'none';
+
     } else {
         showError('check your numbers!');
     }
@@ -35,29 +46,32 @@ function calculateResults(e) {
 // show error function
 
 function showError(error) {
+  document.getElementById('loading').style.display = 'none';// hide loader
+
+  document.getElementById('results').style.display = 'none'; // hide results 
+
+
     // create div
     const errorDiv = document.createElement('div');
-    // get elements 
-    const card = document.querySelector('.card'); 
-    const heading = document.querySelector('.heading'); 
-
+    // get elements
+    const card = document.querySelector('.card');
+    const heading = document.querySelector('.heading');
 
     // add class
     errorDiv.className = 'alert alert-danger';
     // create text node & append to div
     errorDiv.appendChild(document.createTextNode(error));
 
-    // insert error above heading 
+    // insert error above heading
     card.insertBefore(errorDiv, heading);
 
-    // window object set timeout method 
-    // clear error after 3 seconds 
-    // 2 params function , time in miliseconds  
-    setTimeout(clearError, 3000); 
+    // window object set timeout method
+    // clear error after 3 seconds
+    // 2 params function , time in miliseconds
+    setTimeout(clearError, 3000);
 }
 
-
-// clear err function 
-function clearError(){
-  document.querySelector('.alert').remove();
+// clear err function
+function clearError() {
+    document.querySelector('.alert').remove();
 }
