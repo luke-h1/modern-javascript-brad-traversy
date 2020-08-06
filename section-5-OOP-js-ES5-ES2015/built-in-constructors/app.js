@@ -1,5 +1,4 @@
 // strings
-
 // sets a primitive value to the variable name1
 const name1 = 'Luke';
 
