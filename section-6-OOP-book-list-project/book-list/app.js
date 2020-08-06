@@ -74,7 +74,8 @@ document.getElementById('book-form').addEventListener('submit', function (e) {
     const book = new Book(title, author, isbn);
 
     // instantiate UI
-    const ui = new UI();
+    const ui = new UI(); 
+    console.log(ui)
 
     // validation
     if (title === '' || author === '' || isbn === '') {
