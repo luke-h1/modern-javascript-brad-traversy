@@ -9,3 +9,14 @@
   margin: 5px 0 15px 0px ; 
 }
 
+.sucess { 
+  background: green ; 
+}
+
+.error{
+  background: red ;
+}
+
+.btn { 
+  margin-top: 1em ; 
+}
