@@ -4,19 +4,17 @@
 
 .success,
 .error { 
-  color: #fff ; 
   padding: 5px ; 
   margin: 5px 0 15px 0px ; 
+  color:#fff 
+
 }
 
-.sucess { 
-  background: green ; 
+.success { 
+  background: green ;  
 }
 
 .error{
   background: red ;
 }
 
-.btn { 
-  margin-top: 1em ; 
-}
