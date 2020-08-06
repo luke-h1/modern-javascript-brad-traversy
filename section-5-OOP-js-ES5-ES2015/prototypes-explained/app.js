@@ -47,10 +47,8 @@ console.log(bob.birthday);
 mary.getsMarried('smith');
 console.log(mary.getFullName());
 
+// hasOwnProperty  // returns true
+console.log(mary.hasOwnProperty('firstName'));
 
-
-// hasOwnProperty  // returns true 
-console.log(mary.hasOwnProperty('firstName'))
-
-// returns false 
-console.log(mary.hasOwnProperty('getFullName'))
+// returns false
+console.log(mary.hasOwnProperty('getFullName'));
