@@ -26,3 +26,6 @@ function getJokes(e) {
     xhr.open('GET', `http://api.icnb.com/jokes/random/${number}`, true);
     xhr.send();
 }
+
+
+
