@@ -1,6 +1,4 @@
-
-// init class
-const github = new Github
+import github from './Github'; 
 
 // search input
 const searchUser = document.getElementById('searchUser');
