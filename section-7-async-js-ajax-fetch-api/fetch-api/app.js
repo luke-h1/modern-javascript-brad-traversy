@@ -1,52 +1,54 @@
-// getting data from a text file using the fetch API
+// get data from a text file using arrow functions & the fetch API
 document.getElementById('button1').addEventListener('click', getTextData);
 function getTextData() {
     fetch('test.txt')
-        .then(function (res) {
+        .then((res) => {
             return res.text();
         })
-        .then(function (data) {
-            // catch the promise returned from res.text()
-            console.log(data); // console.log() the data returned from res.text()
+        .then((data) => {
+            console.log(data);
             document.getElementById('output').innerHTML = data;
         })
-        .catch(function (err) {
+        .catch((err) => {
             console.log(err);
         });
 }
 
-// getting data from a json file using the fetch API
+// getting data from a JSON file using arrow functions and the fetch API
+
 document.getElementById('button2').addEventListener('click', getJsonData);
 function getJsonData() {
     fetch('posts.json')
-        .then(function (res) {
+        .then((res) => {
             return res.json();
         })
-        .then(function (data) {
+        .then((data) => {
             console.log(data);
             let output = '';
-            data.forEach(function (post) {
-                // loop over the array and get the details
+            data.forEach((post) => {
                 output += `
-                <li>ID: ${post.id}<br> TITLE: ${post.title}</li>`;
+      <li>ID: ${post.id}<br> TITLE: ${post.title}</li> 
+      `;
             });
             document.getElementById('output').innerHTML = output;
         });
 }
 
-// getting data from an API using the fetch API
+// getting data from an API using the fetch API & error function
+
 document.getElementById('button3').addEventListener('click', getApiData);
+
 function getApiData() {
     fetch('https://api.github.com/users')
-        .then(function (res) {
+        .then((res) => {
             return res.json();
         })
-
-        .then(function (data) {
+        .then((data) => {
             console.log(data);
             let output = '';
-            data.forEach(function (user) {
-                output += `<li>${user.login}`;
+            data.forEach((user) => {
+                output += `
+        <li>${user.login}`;
             });
             document.getElementById('output').innerHTML = output;
         });
