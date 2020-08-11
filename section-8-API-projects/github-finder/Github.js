@@ -1,4 +1,4 @@
-class Github {
+export default class Github {
     constructor() {
         this.client_ID = process.env.CLIENT_ID;
         this.client_secret = process.env.CLIENT_SECRET;
