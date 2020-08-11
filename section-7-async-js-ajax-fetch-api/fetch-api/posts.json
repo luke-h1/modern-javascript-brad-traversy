@@ -1,0 +1,17 @@
+[
+    {
+        "title": "hello world",
+        "body": "this is a post from a json file",
+        "id": 1
+    },
+    {
+        "title": "this is post two from json",
+        "body": "this is post two from a json file",
+        "id": 2
+    },
+    {
+        "title": "this is post three from json",
+        "body": "this is post three from a json file",
+        "id": 3
+    }
+]
