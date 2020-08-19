@@ -93,4 +93,4 @@ class UI {
     }
 }
 
-// message: "API rate limit exceeded for 45.89.173.198. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)"
+
