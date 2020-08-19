@@ -25,10 +25,9 @@ const Chatroom = function () {
         send: function (message, from, to) {
             if (to) {
                 // to a single user
-                to.receive(message, from);
+                to.receive(message, from); // just send to single user 
             } else {
-                // Mass message
-                for (key in users) {
+                for (key in users) { // send to every user 
                     if (users[key] !== from) {
                         users[key].receive(message, from);
                     }
