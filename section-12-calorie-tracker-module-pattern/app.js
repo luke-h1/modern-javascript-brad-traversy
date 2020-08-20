@@ -64,14 +64,17 @@ const ItemCtrl = (function () {
         },
            getItemById: function (id) {
             let found = null;
-            data.items.forEach((item) => {
-                if (item.id === id) {
+            data.items.forEach((item) => { // loop thru items and set found to the item that is clicked 
+                if (item.id === id) { // if item.id is eq to id passed in set found = to the item; & return it
                     found = item;
                 }
             });
             return found; 
-        } 
-        
+        }, 
+        setCurrentItem: function(item){
+            data.currentItem = item;  
+        }
+
     };
 })();
 
@@ -196,7 +199,8 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
             const id = parseInt(listIdArr[1]);
             console.log(id);
             const itemToEdit = ItemCtrl.getItemById(id);
-            console.log(itemToEdit);
+            console.log(itemToEdit); 
+            ItemCtrl.setCurrentItem(item); // SET CURRENT ITEM 
         }
     };
 
@@ -224,4 +228,5 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
 // init
 AppCtrl.init();
 
-// Uncaught TypeError: ItemCtrl.getItemById is not a function
+
+// 16.02 
