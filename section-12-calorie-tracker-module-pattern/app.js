@@ -62,6 +62,19 @@ const ItemCtrl = (function () {
             // return
             return data.totalCalories;
         },
+           getItemById: function (id) {
+            let found = null;
+            data.items.forEach((item) => { // loop thru items and set found to the item that is clicked 
+                if (item.id === id) { // if item.id is eq to id passed in set found = to the item; & return it
+                    found = item;
+                }
+            });
+            return found; 
+        }, 
+        setCurrentItem: function(item){
+            data.currentItem = item;  
+        }
+
     };
 })();
 
@@ -128,6 +141,7 @@ const UICtrl = (function () {
             document.querySelector(
                 UISelectors.totalCalories
             ).textContent = total;
+     
         },
         clearEditState: function () {
             UICtrl.clearInput();
@@ -137,15 +151,6 @@ const UICtrl = (function () {
                 'none';
             document.querySelector(UISelectors.backBtn).style.display = 'none';
             document.querySelector(UISelectors.addBtn).style.display = 'inline';
-        },
-        getItemById: function (id) {
-            let found = null;
-            data.items.forEach((item) => {
-                if (item.id === id) {
-                    found = item;
-                }
-            });
-            return found;
         },
     };
 })();
@@ -184,6 +189,7 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
         }
     };
 
+    // UPDATE ITEM SUBMIT
     const itemUpdateSubmit = function (e) {
         if (e.target.classList.contains('edit-item')) {
             e.preventDefault();
@@ -191,8 +197,10 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
             console.log(listId);
             const listIdArr = listId.split('-');
             const id = parseInt(listIdArr[1]);
-            const itemToEdit = ItemCtrl.getItemById(id);  
-        } else {
+            console.log(id);
+            const itemToEdit = ItemCtrl.getItemById(id);
+            console.log(itemToEdit); 
+            ItemCtrl.setCurrentItem(item); // SET CURRENT ITEM 
         }
     };
 
@@ -221,5 +229,4 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
 AppCtrl.init();
 
 
-// Uncaught TypeError: ItemCtrl.getItemById is not a function
- 
+// 16.02 
