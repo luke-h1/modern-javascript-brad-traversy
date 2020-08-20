@@ -53,6 +53,15 @@ const ItemCtrl = (function () {
             data.items.push(newItem); // push to end of item array
             return newItem;
         },
+        getTotalCalories: function () {
+            let total = 0;
+            data.items.forEach((item) => {
+                total += item.calories;
+            });
+            data.totalCalories = total; // set data.totalCalories = to total
+            // return
+            return data.totalCalories;
+        },
     };
 })();
 
@@ -63,6 +72,7 @@ const UICtrl = (function () {
         addBtn: '.add-btn',
         itemNameInput: '#item-name',
         itemCaloriesInput: '#item-calories',
+        totalCalories: '.total-calories'
     };
     // public methods
     return {
@@ -91,7 +101,8 @@ const UICtrl = (function () {
             };
         },
         addListItem: function (item) {
-            document.querySelector(UISelectors.itemList).style.display = 'block'; // show the list 
+            document.querySelector(UISelectors.itemList).style.display =
+                'block'; // show the list
             const li = document.createElement('li');
             li.className = 'collection-item';
             li.id = `item-${item.id}`;
@@ -110,6 +121,9 @@ const UICtrl = (function () {
         hideList: function () {
             document.querySelector(UISelectors.itemList).style.display = 'none';
         },
+        showTotalCalories: function(total){
+            document.querySelector(UISelectors.totalCalories).textContent = total;
+        }
     };
 })();
 
@@ -135,7 +149,8 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
             const newItem = ItemCtrl.addItem(input.name, input.calories);
             // add ITEM TO UI LIST
             UICtrl.addListItem(newItem);
-
+            const totalCalories = ItemCtrl.getTotalCalories(); // get total cals 
+            UICtrl.showTotalCalories(totalCalories); // add to ui 
             // clr fields after user enters values
             UICtrl.clearInput();
         }
@@ -147,7 +162,7 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
             const items = itemCtrl.getItems(); // Fetch Items from data struct
             if (items.length === 0) {
                 UICtrl.hideList();
-            } else { 
+            } else {
                 UICtrl.populateItemList(items); // populate list w/ items
             }
             loadEventListeners(); // load event listeners
