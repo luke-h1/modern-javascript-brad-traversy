@@ -200,7 +200,7 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
             console.log(id);
             const itemToEdit = ItemCtrl.getItemById(id);
             console.log(itemToEdit); 
-            ItemCtrl.setCurrentItem(item); // SET CURRENT ITEM 
+            ItemCtrl.setCurrentItem(); // SET CURRENT ITEM 
         }
     };
 
