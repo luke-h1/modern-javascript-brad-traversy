@@ -42,15 +42,15 @@ const ItemCtrl = (function () {
             let ID;
             // create ID
             if (data.items.length > 0) {
-                ID = data.items[data.items.length - 1].id++;
+                ID = data.items[data.items.length - 1].id + 1; // increment ID by one each iteration
             } else {
                 ID = 0;
             }
-            // Calories to numbers: 
+            // Calories to numbers:
             calories = parseInt(calories);
-            newItem = new Item(ID, name, calories);  // create a new item 
-            data.items.push(newItem); // push to end of item array 
-            return newItem; 
+            newItem = new Item(ID, name, calories); // create a new item
+            data.items.push(newItem); // push to end of item array
+            return newItem;
         },
     };
 })();
@@ -89,6 +89,16 @@ const UICtrl = (function () {
                     .value,
             };
         },
+        addListItem: function (item) {
+            const li = document.createElement('li');
+            li.className = 'collection-item';
+            li.id = `item-${item.id}`; 
+            li.innerHTML = ` <strong>${item.name}</strong> <em> ${item.calories} Calories</em> 
+            <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i> 
+            </a> `;
+            // insert into DOM 
+            document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
+        },
     };
 })();
 
@@ -112,7 +122,8 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
         if (input.name !== '' && input.calories !== '') {
             // add item
             const newItem = ItemCtrl.addItem(input.name, input.calories);
-        } else {
+            // add ITEM TO UI LIST
+            UICtrl.addListItem(newItem);
         }
     };
 
