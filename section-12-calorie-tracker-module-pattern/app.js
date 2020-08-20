@@ -62,6 +62,16 @@ const ItemCtrl = (function () {
             // return
             return data.totalCalories;
         },
+           getItemById: function (id) {
+            let found = null;
+            data.items.forEach((item) => {
+                if (item.id === id) {
+                    found = item;
+                }
+            });
+            return found; 
+        } 
+        
     };
 })();
 
@@ -128,6 +138,7 @@ const UICtrl = (function () {
             document.querySelector(
                 UISelectors.totalCalories
             ).textContent = total;
+     
         },
         clearEditState: function () {
             UICtrl.clearInput();
@@ -137,15 +148,6 @@ const UICtrl = (function () {
                 'none';
             document.querySelector(UISelectors.backBtn).style.display = 'none';
             document.querySelector(UISelectors.addBtn).style.display = 'inline';
-        },
-        getItemById: function (id) {
-            let found = null;
-            data.items.forEach((item) => {
-                if (item.id === id) {
-                    found = item;
-                }
-            });
-            return found;
         },
     };
 })();
@@ -184,6 +186,7 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
         }
     };
 
+    // UPDATE ITEM SUBMIT
     const itemUpdateSubmit = function (e) {
         if (e.target.classList.contains('edit-item')) {
             e.preventDefault();
@@ -191,8 +194,9 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
             console.log(listId);
             const listIdArr = listId.split('-');
             const id = parseInt(listIdArr[1]);
-            const itemToEdit = ItemCtrl.getItemById(id);  
-        } else {
+            console.log(id);
+            const itemToEdit = ItemCtrl.getItemById(id);
+            console.log(itemToEdit);
         }
     };
 
@@ -220,6 +224,4 @@ const AppCtrl = (function (itemCtrl, UICtrl) {
 // init
 AppCtrl.init();
 
-
 // Uncaught TypeError: ItemCtrl.getItemById is not a function
- 
