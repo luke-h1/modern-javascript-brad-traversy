@@ -59,9 +59,9 @@ const ItemCtrl = (function () {
         ID = 0;
       }
       calories = parseInt(calories);
-      newItem = new Item(ID, name, calories); 
-      data.items.push(newItem); // PUSH TO ITEMS ARRAY 
-      return newItem; 
+      newItem = new Item(ID, name, calories);
+      data.items.push(newItem); // PUSH TO ITEMS ARRAY
+      return newItem;
     },
 
     logData: function () {
@@ -92,7 +92,7 @@ const UICtrl = (function () {
     populateItemList: function (items) {
       let html = '';
       items.forEach(function (item) {
-        html += `  <li class="collection-item" id="item-${item.id}"><strong>${item.name}</strong><em> ${item.calories} Calories</em>
+        html += `<li class="collection-item" id="item-${item.id}"><strong>${item.name}</strong><em> ${item.calories} Calories</em>
         <a class="secondary-content" href=""><i class="edit-item fa fa-pencil"></i></a>
       </li> `;
       });
@@ -104,6 +104,19 @@ const UICtrl = (function () {
         calories: document.querySelector(UISelectors.itemCaloriesInput).value,
       };
     },
+    addListItem: function (item) {
+      const li = document.createElement('li');
+      li.className = 'collection-item';
+      li.id = `item-${item.id}`;
+      li.innerHTML = `
+      <strong>${item.name}</strong><em>${item.calories} Calories</em>
+        <a class="secondary-content" href=""><i class="edit-item fa fa-pencil"></i></a>`;
+        document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);  
+    },
+    clearInput: function(){
+      document.querySelector(UISelectors.itemNameInput).value = ''; 
+      document.querySelector(UISelectors.itemCaloriesInput).value = ''; 
+    }, 
 
     getSelectors: function () {
       return UISelectors;
@@ -135,9 +148,10 @@ const App = (function (ItemCtrl, UICtrl) {
     const input = UICtrl.getItemInput();
     if (input.name !== '' && input.calories !== '') {
       const newItem = ItemCtrl.addItem(input.name, input.calories);
-    } else {
+      event.preventDefault();
+      UICtrl.addListItem(newItem);
+      UICtrl.clearInput(); 
     }
-    event.preventDefault();
   };
 
   return {
