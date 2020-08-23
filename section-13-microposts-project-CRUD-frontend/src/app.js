@@ -1,25 +1,12 @@
-/*
-=======================
-common JS MODULE SYNTAX
-=======================
-*/ 
-// const person = require('./common-js');  
-// console.log(person)  
+import { http } from './http';
+import { ui } from './ui'; 
+// GET POSTS ON DOM LOAD 
+document.addEventListener('DOMContentLoaded', getPosts); 
 
 
+function getPosts(){
+  http.get('http://localhost:3000/posts') 
+    .then(data => ui.showPosts(data))  
+    .catch(err => console.log(err))
+}
 
-
-
-/*
-=======================
-ES2015 MODULE SYNTAX 
-=======================
-*/ 
-// import { person , sayHello} from './es2015-modules'; 
-// import * as mod from './es2015-modules'; // IMPORT EVERYTHING 
-// console.log(mod.person) 
-// console.log(mod.sayHello());
-
-import greeting from './es2015-modules'; 
-
-console.log(greeting);
