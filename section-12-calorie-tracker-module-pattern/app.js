@@ -4,16 +4,19 @@ STORAGE CONTROLLER START#
 ========================# 
 */
 
+// LS STORES ITEMS AS STRINGS BY DEFAULT
+// https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+
 const StorageCtrl = (function () {
   return {
     storeItem: function (item) {
-      let items; 
+      let items;
       if (localStorage.getItem('items') === null) {
-        item = [];
+        items = [];
         items.push(item);
-        localStorage.setItem('items', JSON.stringify(items));
+        localStorage.setItem('items', JSON.stringify(items)); // CONVERT TO JSON STRING
       } else {
-        items = JSON.parse(localStorage.getItem('items'));
+        items = JSON.parse(localStorage.getItem('items')); // CONVERT TO JSON OBJECT
         items.push(item);
         localStorage.setItem('items', JSON.stringify(items));
       }
@@ -28,12 +31,34 @@ const StorageCtrl = (function () {
       }
       return items;
     },
+    updateItemStorage: function (updatedItem) {
+      let items = JSON.parse(localStorage.getItem('items')); 
+      items.forEach((item, index) => {
+        if(updatedItem.id === item.id){
+          items.splice(index, 1, updatedItem); 
+        }
+      }); 
+      localStorage.setItem('items', JSON.stringify(items)); // CONVERT TO JSON STRING
+
+    },
+    deleteItemFromStorage: function(id){
+      let items = JSON.parse(localStorage.getItem('items')); 
+      items.forEach((item, index) => {
+        if(id  === item.id){
+          items.splice(index, 1); 
+        }
+      }); 
+      localStorage.setItem('items', JSON.stringify(items)); // CONVERT TO JSON STRING
+    }, 
+    clearItemsFromStorage: function(){
+      localStorage.removeItem('items'); 
+    }, 
   };
 })();
 
 /* 
 ========================#
-STORAGE CONTROLLER END# 
+STORAGE CONTROLLER END  # 
 ========================# 
 */
 
@@ -54,23 +79,23 @@ const ItemCtrl = (function () {
   };
   const data = {
     //items: [
-          // {
-          //   id: 0,
-          //   name: 'breakfast',
-          //   calories: 500,
-          // },
-          // {
-          //   id: 1,
-          //   name: 'lunch',
-          //   calories: 500,
-          // },
-          // {
-          //   id: 2,
-          //   name: 'dinner',
-          //   calories: 500,
-          // },
-    //], 
-    items: StorageCtrl.getItemsFromStorage(), 
+    // {
+    //   id: 0,
+    //   name: 'breakfast',
+    //   calories: 500,
+    // },
+    // {
+    //   id: 1,
+    //   name: 'lunch',
+    //   calories: 500,
+    // },
+    // {
+    //   id: 2,
+    //   name: 'dinner',
+    //   calories: 500,
+    // },
+    //],
+    items: StorageCtrl.getItemsFromStorage(),
     currentItem: null,
     totalCalories: 0,
   };
@@ -283,6 +308,7 @@ const itemUpdateSubmit = function (e) {
   UICtrl.updateListItem(updatedItem);
   const totalCalories = ItemCtrl.getTotalCalories();
   UICtrl.showTotalCalories(totalCalories);
+  StorageCtrl.updateItemStorage(updatedItem); // UPDATE LS
   UICtrl.clearEditState();
   e.preventDefault();
 };
@@ -294,13 +320,15 @@ const itemDeleteSubmit = function (e) {
   UICtrl.deleteListItem(currentItem.id);
   const totalCalories = ItemCtrl.getTotalCalories();
   UICtrl.showTotalCalories(totalCalories);
+  StorageCtrl.deleteItemFromStorage(currentItem.id);
   UICtrl.clearEditState();
 };
 const clearAllItems = function () {
   ItemCtrl.clearAllItems();
   const totalCalories = ItemCtrl.getTotalCalories();
-  UICtrl.showTotalCalories(totalCalories);
+  UICtrl.showTotalCalories(totalCalories); 
   UICtrl.removeItems();
+  StorageCtrl.clearItemsFromStorage(); 
   UICtrl.hideList();
 };
 
